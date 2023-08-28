@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        .horizontal-line {
+            border: none;
+            border-top: 2px solid lightblue;
+            margin: 20px auto;
+            width: 30%;
+        }
+        button {
+            margin: 20px auto;
+        }
+        .form-control {
+            appearance: none;
+            padding: 5px 30px 5px 10px;
+        }
+        select option:checked {
+            background-color: lightgreen;
+        }
+        select option:checked::before {
+            content: "\2713";
+            padding-right: 5px;
+        }
+    </style>
+</head>
+<body style="background-color: aqua;"">
+    <div >
+        <h1 style="text-align: center;">JavaScript Calculator</h1>
+        <hr class="horizontal-line">
+    </div>    
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <label for="num1">Number-1</label><br>
+                    <input type="number" class="form-control" id="num1">
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <label for="operator">Operator</label><br>
+                    <select class="form-control" id="operator">
+                        <option value="+">Addition (+)</option>
+                        <option value="-">Subtraction (-)</option>
+                        <option value="*">Multiplication (*)</option>
+                        <option value="/">Division (/)</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <label for="num2">Number-2</label><br>
+                    <input type="number" class="form-control" id="num2">
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" id="calculate-button">Submit</button>
+            <div class="row justify-content-center">
+                <div class="form-group col-lg-4 col-sm-6 col-xs-12">
+                    <label for="result">Answer :</label><br>
+                    <input type="text" class="form-control" id="result" readonly>
+                </div>
+            </div>
+    </div>
+</body>
+<script>
+    // Get references to form elements
+    const num1Input = document.getElementById('num1');
+    const num2Input = document.getElementById('num2');
+    const operatorInput = document.getElementById('operator');
+    const resultInput = document.getElementById('result');
+    const calculateButton = document.getElementById('calculate-button');
+
+    // Function to calculate and display the result
+    function calculateResult() {
+        const num1 = parseFloat(num1Input.value);
+        const num2 = parseFloat(num2Input.value);
+        const operator = operatorInput.value;
+
+        let result;
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                if (num2 === 0) {
+                    result = 'Error: Division by zero';
+                } else {
+                    result = num1 / num2;
+                }
+                break;
+            default:
+                result = 'Invalid operator';
+        }
+
+        resultInput.value = result;
+    }
+
+    // Attach a click event listener to the Calculate button
+    calculateButton.addEventListener('click', calculateResult);
+
+    // Clear the result when any input changes
+    num1Input.addEventListener('input', () => {
+        resultInput.value = '';
+    });
+
+    num2Input.addEventListener('input', () => {
+        resultInput.value = '';
+    });
+
+    operatorInput.addEventListener('change', () => {
+        resultInput.value = '';
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+</html>
